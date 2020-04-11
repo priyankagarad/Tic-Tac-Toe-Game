@@ -13,8 +13,8 @@ function displayBoard()
 {
 	for (( i=0;i<7;i=i+3 ))
 	do
-	 echo " |${board[$i]} | ${board[$i+1]} | ${board[$i+2]} |"
-	 echo "  "
+		echo " |${board[$i]} | ${board[$i+1]} | ${board[$i+2]} |"
+	 	echo "  "
 	done
 }
 #assign value to user
@@ -44,22 +44,22 @@ function switchPlayer()
 #  For user play
 function userPlay()
 {
-	if [[ $cell_Count -lt $max_Cell ]]
-   then
-    read -p "Enter Number Between 1 to 9:" position
-     if [[ ${board[$position-1]} -eq $position ]]
-     then
-       board[$position-1]=$user
-       ((cell_Count++))
-       displayBoard
-       rowColumnDiagonalWin
-      else
-       echo "Invalid Cell"
-       userPlay
-     fi
+	if [[ $cellCount -lt $maximumCell ]]
+	then
+		read -p "Enter Number Between 1 to 9:" position
+		if [[ ${board[$position-1]} -eq $position ]]
+		then
+			board[$position-1]=$user
+			((cellCount++))
+			displayBoard
+			rowColumnDiagonalWin
+		else
+			echo "Invalid Cell"
+			userPlay
+		fi
 	else
-      echo "Game tie !!"
-      exit
+		echo "Game tie !!"
+		exit
 	fi
 }
 #function to check winning condition for Row Column and Diagonal
@@ -93,7 +93,7 @@ function checkCondition()
 function computerPlay()
 {
  	flag=0
-	if [[ $cell_Count -lt $max_Cell ]]
+	if [[ $cellCount -lt $maximumCell ]]
 	then
 		echo "computer play"
 		winBlockCondition $computer
@@ -210,6 +210,24 @@ function computerDiagonalWin()
 		board[$diagonal]=$computer
 		checkConditions
 	 fi
+}
+#Check Corner Condition
+function checkCorner()
+{
+	for (( cell=0;cell<7;cell=$cell+6))
+	do
+		if [[ $board[$cell]} == $((cell+1)) ]]
+		then
+			board[$cell] == $computer
+			checkCondition
+			break
+		elif [[ ${board[$cell+2]} == $((cell+3)) ]]
+		then
+			board[$cell+2]=$computer
+			checkCondition
+			break
+		fi
+	done
 }
 
 #  Main function call
