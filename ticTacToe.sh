@@ -1,6 +1,10 @@
 #!/bin/bash -x
 echo "Welcome to Tic Tac Toe"
 
+#variable
+cellcount=0
+maximumCell=9
+
 declare -a board
 board=(1 2 3 4 5 6 7 8 9)
 
@@ -31,11 +35,17 @@ function assignSymbol()
 function switchPlayer()
 {
 	if [[ $player == "user" ]]
-   then
-  		 echo "$user"
+	then
+  	  echo "$user"
    else
-    	echo "$computer"
+     echo "$computer"
    fi
+}
+#to show Board Condition
+function checkCondition()
+{
+   board
+   (( cellCount++ ))
 }
 
 board
