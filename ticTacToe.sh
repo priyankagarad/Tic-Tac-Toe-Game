@@ -84,9 +84,9 @@ function rowColumnDiagonalWin()
 #to show Board Condition
 function checkCondition()
 {
-    displayBoard
-	 flag=1
-    (( cellCount++ ))
+	displayBoard
+	flag=1
+	(( cellCount++ ))
 }
 # For computer play
 
@@ -99,9 +99,9 @@ function computerPlay()
 		winBlockCondition $computer
 		winBlockCondition $user
 	if [ $flag -eq 0 ]
-   then
+	then
 		checkCorner
-   fi
+	fi
 	if [ $flag -eq 0 ]
 	then
 		checkCenter
@@ -129,11 +129,11 @@ function winBlockCondition()
 	if [ $flag -eq 0 ]
  	then
 		computerColumnWin $symbol
-   fi
+	fi
 	if [ $flag -eq 0 ]
 	then
 		computerDiagonalWin $symbol
-   fi
+	fi
 }
 
 # To check Computer Row win
@@ -172,7 +172,7 @@ function computerColumnWin()
 		then
 				board[$column+3]=$computer
 				checkConditions
-	   elif [[ ${board[$column+3]} == $symbol && ${board[$column+6]} == $symbol && ${board[$column]} == $((column+1)) ]]
+		elif [[ ${board[$column+3]} == $symbol && ${board[$column+6]} == $symbol && ${board[$column]} == $((column+1)) ]]
 		then
 				board[$column]=$computer
 				checkConditions
@@ -181,7 +181,6 @@ function computerColumnWin()
 }
 
 # To check computer Diagonal Win
-
 function computerDiagonalWin()
 {
 	local symbol=$1
@@ -200,16 +199,16 @@ function computerDiagonalWin()
 		checkConditions
 	elif [[ ${board[$diagonal]} == $symbol && ${board[$diagonal+4]} == $symbol && ${board[$diagonal+8]} == $((diagonal+9)) ]]
 	then
-		 board[$diagonal+8]=$computer
-		 checkConditions
+		board[$diagonal+8]=$computer
+		checkConditions
 	elif [[ ${board[$diagonal]} == $symbol && ${board[$diagonal+8]} == $symbol && ${board[$diagonal+4]} == $((diagonal+5)) ]]
 	then
-			board[$diagonal+4]=$computer
-			checkConditions
+		board[$diagonal+4]=$computer
+		checkConditions
 	 elif [[ ${board[$diagonal+4]} == $symbol && ${board[$diagonal+8]} == $symbol && ${board[$diagonal]} == $((diagonal+1)) ]]
 	 then
-			board[$diagonal]=$computer
-			checkConditions
+		board[$diagonal]=$computer
+		checkConditions
 	 fi
 }
 
