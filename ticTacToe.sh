@@ -2,7 +2,7 @@
 echo "Welcome to Tic Tac Toe"
 
 #variable
-cellcount=0
+cellCount=0
 maximumCell=9
 
 declare -a board
@@ -38,19 +38,21 @@ function switchPlayer()
 {
 	if [[ $player == "user" ]]
 	then
-  	  echo "$user"
-   fi
+		userPlay
+	else
+		computerPlay
+	fi
 }
 #  For user play
 function userPlay()
 {
-	if [[ $cell_Count -lt $max_Cell ]]
+	if [[ $cellCount -lt $maximumCell ]]
    then
     read -p "Enter Number Between 1 to 9:" position
      if [[ ${board[$position-1]} -eq $position ]]
      then
        board[$position-1]=$user
-       ((cell_Count++))
+       ((cellCount++))
        displayBoard
        rowColumnDiagonalWin
       else
@@ -93,7 +95,7 @@ function checkCondition()
 function computerPlay()
 {
  	flag=0
-	if [[ $cell_Count -lt $max_Cell ]]
+	if [[ $cellCount -lt $maximumCell ]]
 	then
 		echo "computer play"
 		winBlockCondition $computer
@@ -153,7 +155,7 @@ function computerRowWin()
 		elif [[ ${board[$row+1]} == $symbol && ${board[$row+2]} == $symbol && ${board[$row]} == $((row+1)) ]]
 		then
 			board[$row]=$computer
-			checkConditions
+			checkCondition
 		fi
 	done
 }
@@ -167,15 +169,15 @@ function computerColumnWin()
 		if [[ ${board[$column]} == $symbol && ${board[$column+3]} == $symbol && ${board[$column+6]} == $((column+7)) ]]
 		then
 				board[$column+6]=$computer
-				checkConditions
+				checkCondition
 		elif [[ ${board[$column]} == $symbol && ${board[$column+6]} == $symbol && ${board[$column+3]} == $((column+4)) ]]
 		then
 				board[$column+3]=$computer
-				checkConditions
+				checkCondition
 		elif [[ ${board[$column+3]} == $symbol && ${board[$column+6]} == $symbol && ${board[$column]} == $((column+1)) ]]
 		then
 				board[$column]=$computer
-				checkConditions
+				checkCondition
 		 fi
 	done
 }
@@ -188,11 +190,11 @@ function computerDiagonalWin()
 	if [[ ${board[$diagonal+2]} == $symbol && ${board[$diagonal+4]} == $symbol && ${board[$diagonal+6]} == $((diagonal+7)) ]]
 	then
 		board[$diagonal+6]=$computer
-		checkConditions
+		checkCondition
 	elif [[ ${board[$diagonal+2]} == $symbol && ${board[$diagonal+6]} == $symbol && ${board[$diagonal+4]} == $((diagonal+5)) ]]
 	then
 		board[$diagonal+4]=$computer
-		checkConditions
+		checkCondition
 	elif [[ ${board[$diagonal+4]} == $symbol && ${board[$diagonal+6]} == $symbol && ${board[$diagonal+2]} == $((diagonal+3)) ]]
 	then
 		board[$diagonal+2]=$computer
@@ -200,16 +202,45 @@ function computerDiagonalWin()
 	elif [[ ${board[$diagonal]} == $symbol && ${board[$diagonal+4]} == $symbol && ${board[$diagonal+8]} == $((diagonal+9)) ]]
 	then
 		board[$diagonal+8]=$computer
-		checkConditions
+		checkCondition
 	elif [[ ${board[$diagonal]} == $symbol && ${board[$diagonal+8]} == $symbol && ${board[$diagonal+4]} == $((diagonal+5)) ]]
 	then
 		board[$diagonal+4]=$computer
-		checkConditions
+		checkCondition
 	 elif [[ ${board[$diagonal+4]} == $symbol && ${board[$diagonal+8]} == $symbol && ${board[$diagonal]} == $((diagonal+1)) ]]
 	 then
 		board[$diagonal]=$computer
-		checkConditions
+		checkCondition
 	 fi
+}
+
+# To check Center for computer
+function checkCenter()
+{
+	cell=0
+	if [[ ${board[$cell+4]} -eq $((cell+5)) ]]
+	then
+		board[$cell+4]=$computer
+		checkCondition
+	fi
+}
+#check condition for corner(computer)
+function checkCorner()
+{
+	for (( cell=0;cell<7;cell=$cell+6))
+	do
+		if [[ $board[$cell]} == $((cell+1)) ]]
+		then
+			board[$cell] == $computer
+			checkConditions
+			break
+		elif [[ ${board[$cell+2]} == $((cell+3)) ]]
+		then
+			board[$cell+2]=$computer
+			checkConditions
+			break
+		fi
+	done
 }
 
 #  Main function call
