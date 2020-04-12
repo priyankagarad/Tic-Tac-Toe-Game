@@ -8,7 +8,7 @@ maximumCell=9
 declare -a board
 board=(1 2 3 4 5 6 7 8 9)
 
-# To display board
+#display board
 function displayBoard()
 {
 	for (( i=0;i<7;i=i+3 ))
@@ -44,7 +44,7 @@ function switchPlayer()
 		computerPlay
 	fi
 }
-#For user play
+#user play
 function userPlay()
 {
 	if [[ $cellCount -lt $maximumCell ]]
@@ -249,7 +249,7 @@ function checkSides()
 		fi
 	done
 }
-#  Main function call
+# Main function call
 displayBoard
 assignSymbol
 switchPlayer
